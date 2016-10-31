@@ -121,6 +121,9 @@ class HsqldbUserDao implements UserDao {
 			if (n>1) {
 				throw new DatabaseException("Number of the selected rows: " + n);
 			}
+			resultSet.close();
+			statement.close();
+			connection.close();
 		} catch (DatabaseException e) {
 			throw e;
 		} catch (SQLException e) {
