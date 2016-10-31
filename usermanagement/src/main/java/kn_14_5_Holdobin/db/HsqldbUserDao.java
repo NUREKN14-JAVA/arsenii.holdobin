@@ -12,6 +12,8 @@ import java.sql.Date;
 import kn_14_5_Holdobin.User;
 
 class HsqldbUserDao implements UserDao {
+	private static final String DELETE_QUERY = "DELETE FROM users WHERE id=?";
+	private static final String FIND_QUERY = "SELECT id, firstname, lastname, dateofbirth FROM users WHERE id=?";
 	private static final String UPDATE_QUERY = "UPDATE users SET firstname=?, lastname=?, dateofbirth=? WHERE id=?";
 	private static final String SELECT_ALL_OUERY = "SELECT id, firstname, lastname, dateofbirth FROM users";
 	private static final String INSERT_QUERY = "INSERT INTO users(firstname, lastname,dateofbirth) VALUES (?,?,?)";
@@ -82,7 +84,7 @@ class HsqldbUserDao implements UserDao {
 	public User delete(User user) throws DatabaseException {
 		try {
 			Connection connection = connectionFactory.createConnection();
-			PreparedStatement statement = connection.prepareStatement("DELETE FROM users WHERE id=?");
+			PreparedStatement statement = connection.prepareStatement(DELETE_QUERY);
 			statement.setLong(1, user.getId());
 			int n = statement.executeUpdate();
 			if (n!= 1) {
@@ -104,7 +106,7 @@ class HsqldbUserDao implements UserDao {
 		User user=null;
 		try {
 			Connection connection = connectionFactory.createConnection();
-			PreparedStatement statement = connection.prepareStatement("SELECT id, firstname, lastname, dateofbirth FROM users WHERE id=?");
+			PreparedStatement statement = connection.prepareStatement(FIND_QUERY);
 			statement.setLong(1, id);
 			ResultSet resultSet = statement.executeQuery();
 			int n=0;
@@ -114,9 +116,9 @@ class HsqldbUserDao implements UserDao {
 				user.setId(new Long(resultSet.getLong(1)));
 				user.setFirstName(new String(resultSet.getString(2)));
 				user.setLastName(new String(resultSet.getString(3)));
-				user.setDateOfBirthd(resultSet.getDate(4));		
+				user.setDateOfBirthd(new java.util.Date(resultSet.getDate(4).getTime()));		
 			}
-			if (n!=1) {
+			if (n>1) {
 				throw new DatabaseException("Number of the selected rows: " + n);
 			}
 		} catch (DatabaseException e) {

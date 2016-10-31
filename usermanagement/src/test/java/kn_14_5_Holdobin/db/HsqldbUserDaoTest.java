@@ -67,6 +67,23 @@ public class HsqldbUserDaoTest extends DatabaseTestCase {
 			fail(e.toString());
 		}
 	}
+	
+	@Test
+	public void testFind() {
+		try {
+			User user = dao.find(1001L);
+			assertNotNull(user);
+			assertEquals(new Long(1001), user.getId());
+			assertEquals("George", user.getFirstName());
+			assertEquals("Bush", user.getLastName());
+			
+		} catch (DatabaseException e) {
+			e.printStackTrace();
+			fail(e.toString());
+		}
+		
+	}
+	
 	@Test
 	public void testUpdate() {
 		try {
@@ -77,10 +94,30 @@ public class HsqldbUserDaoTest extends DatabaseTestCase {
 			user.setId(1001L);
 			user = dao.update(user);
 			assertNotNull(user);
+			User test = dao.find(1001L);
+			assertEquals(user.getFirstName(),test.getFirstName());
+			assertEquals(user.getLastName(),test.getLastName());
+			assertEquals(user.getDateOfBirthd().getYear(),test.getDateOfBirthd().getYear());
+			assertEquals(user.getDateOfBirthd().getMonth(),test.getDateOfBirthd().getMonth());
+			assertEquals(user.getDateOfBirthd().getDate(),test.getDateOfBirthd().getDate());
 		} catch (DatabaseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			fail(e.toString());
 		}
+	}
+	
+	@Test
+	public void testDelete() {
+		try {
+			User user = dao.find(1001L);
+			user = dao.delete(user);
+			User test = dao.find(user.getId());
+			assertNull(test);
+		} catch (DatabaseException e) {
+			e.printStackTrace();
+			fail(e.toString());
+		}
+		
 	}
 }
