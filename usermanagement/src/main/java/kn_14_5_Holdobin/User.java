@@ -38,7 +38,11 @@ public class User {
 	}
 
 	public void setDateOfBirthd(Date dateOfBirthd) {
-		this.dateOfBirthd = dateOfBirthd;
+		Date temp =new Date(0);
+		temp.setDate(dateOfBirthd.getDate());
+		temp.setYear(dateOfBirthd.getYear());
+		temp.setMonth(dateOfBirthd.getMonth());
+		this.dateOfBirthd = temp;
 	}
 
 	public Object getFullName() {

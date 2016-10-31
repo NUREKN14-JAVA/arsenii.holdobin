@@ -97,9 +97,7 @@ public class HsqldbUserDaoTest extends DatabaseTestCase {
 			User test = dao.find(1001L);
 			assertEquals(user.getFirstName(),test.getFirstName());
 			assertEquals(user.getLastName(),test.getLastName());
-			assertEquals(user.getDateOfBirthd().getYear(),test.getDateOfBirthd().getYear());
-			assertEquals(user.getDateOfBirthd().getMonth(),test.getDateOfBirthd().getMonth());
-			assertEquals(user.getDateOfBirthd().getDate(),test.getDateOfBirthd().getDate());
+			assertEquals(user.getDateOfBirthd(),test.getDateOfBirthd());
 		} catch (DatabaseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
