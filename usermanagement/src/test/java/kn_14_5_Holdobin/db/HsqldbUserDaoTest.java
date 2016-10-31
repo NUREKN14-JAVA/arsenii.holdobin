@@ -99,7 +99,6 @@ public class HsqldbUserDaoTest extends DatabaseTestCase {
 			assertEquals(user.getLastName(),test.getLastName());
 			assertEquals(user.getDateOfBirthd(),test.getDateOfBirthd());
 		} catch (DatabaseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			fail(e.toString());
 		}
