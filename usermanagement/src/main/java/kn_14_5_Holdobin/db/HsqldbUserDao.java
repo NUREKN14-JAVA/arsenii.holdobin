@@ -88,7 +88,7 @@ class HsqldbUserDao implements UserDao {
 			statement.setLong(1, user.getId());
 			int n = statement.executeUpdate();
 			if (n!= 1) {
-				throw new DatabaseException("Number of the updated rows: " + n);
+				throw new DatabaseException("Number of the changed rows: " + n);
 			}
 			statement.close();
 			connection.close();
@@ -132,6 +132,7 @@ class HsqldbUserDao implements UserDao {
 		return user;
 	}
 
+	
 	@Override
 	public Collection findAll() throws DatabaseException {
 		Collection result = new LinkedList();

@@ -3,6 +3,7 @@ package kn_14_5_Holdobin.db;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Properties;
 
 public class ConnectionFactoryImpl implements ConnectionFactory {
 	
@@ -18,6 +19,13 @@ public class ConnectionFactoryImpl implements ConnectionFactory {
 		this.driver = driver;	
 		
 		
+	}
+
+	public ConnectionFactoryImpl(Properties properties) {
+		user = properties.getProperty("connection.user");
+		driver = properties.getProperty("connection.driver");
+		url = properties.getProperty("connection.url");
+		password = properties.getProperty("connection.password");
 	}
 
 	@Override

@@ -1,32 +1,42 @@
-<project name="usermanagement" basedir="." default="test">
+<project name="usermanagement" basedir="." default="test-compile">
 
-	<property name="test-java-dir" value="${basedir}/src/test/java"/>
-	<property name="main-java-dir" value="${basedir}/src/main/java"/>
-	<property name="build-dir" value="${basedir}/bin"/>	
-	
+	<property name="test-java-dir" value="${basedir}/src/test/java" />
+	<property name="main-java-dir" value="${basedir}/src/main/java" />
+	<property name="build-dir" value="${basedir}/bin" />
+	<property name="lib-dir" value="${basedir}/lib" />
+
 	<target name="clean">
-		<delete dir="${build-dir}"/>
+		<delete dir="${build-dir}" />
 	</target>
-	
-	<target name="init">
-		<mkdir dir="${build-dir}"/>
+
+	<target name="init" depends="clean">
+		<mkdir dir="${build-dir}" />
 	</target>
-	
-	<target name="compile">
-		<javac srcdir="${main-java-dir}" destdir="${build-dir}"/>	
+
+	<target name="compile" depends="init">
+		<javac srcdir="${main-java-dir}" destdir="${build-dir}" />
 	</target>
-	
-	<target name="test-compile">
-		<javac srcdir="${test-java-dir}"  destdir="${build-dir}"/>
+
+	<target name="test-compile" depends="compile">
+		<javac srcdir="${test-java-dir}" destdir="${build-dir}">
+			<classpath>
+				<pathelement
+					location="C:/Users/Primaapec/.p2/pool/plugins/org.junit_4.12.0.v201504281640/junit.jar" />
+				<pathelement location="${build-dir}" />
+			</classpath>
+		</javac>
 	</target>
-	
-	<target name="test">
+
+	<target name="test" depends="test-compile">
 		<junit>
 			<classpath>
-				<pathelement location="${build-dir}"/>
+				<pathelement location="${build-dir}" />
 			</classpath>
-			<formatter type="plain"/>
+			<formatter type="plain" />
 			<test name="kn_14_5_Holdobin.UserTest"></test>
 		</junit>
+		<dbunit>
+
+		</dbunit>
 	</target>
 </project>

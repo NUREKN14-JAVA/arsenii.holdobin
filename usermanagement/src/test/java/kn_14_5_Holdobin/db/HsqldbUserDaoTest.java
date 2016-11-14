@@ -7,7 +7,6 @@ import org.dbunit.database.DatabaseConnection;
 import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.xml.XmlDataSet;
-import org.hsqldb.lib.Collection;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -55,6 +54,7 @@ public class HsqldbUserDaoTest extends DatabaseTestCase {
 		return dataSet;
 	}
 	
+	@SuppressWarnings("rawtypes")
 	@Test
 	public void testFindAll() {
 		try {

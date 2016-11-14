@@ -37,6 +37,7 @@ public class User {
 		return dateOfBirthd;
 	}
 
+	@SuppressWarnings("deprecation")
 	public void setDateOfBirthd(Date dateOfBirthd) {
 		Date temp =new Date(0);
 		temp.setDate(dateOfBirthd.getDate());

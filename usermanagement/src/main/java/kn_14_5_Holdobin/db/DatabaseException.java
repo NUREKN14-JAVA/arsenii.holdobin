@@ -2,6 +2,11 @@ package kn_14_5_Holdobin.db;
 
 public class DatabaseException extends Exception {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 79735458678152891L;
+
 	public DatabaseException() {
 		// TODO Auto-generated constructor stub
 	}
