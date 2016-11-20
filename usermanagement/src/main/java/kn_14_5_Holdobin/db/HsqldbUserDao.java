@@ -2,12 +2,12 @@ package kn_14_5_Holdobin.db;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.LinkedList;
-import java.sql.Date;
 
 import kn_14_5_Holdobin.User;
 
@@ -18,10 +18,11 @@ class HsqldbUserDao implements UserDao {
 	private static final String SELECT_ALL_OUERY = "SELECT id, firstname, lastname, dateofbirth FROM users";
 	private static final String INSERT_QUERY = "INSERT INTO users(firstname, lastname,dateofbirth) VALUES (?,?,?)";
 	private ConnectionFactory connectionFactory;
+	int t = 0;
 
 	public HsqldbUserDao() {
 	}
-	
+
 	public HsqldbUserDao(ConnectionFactory connectionFactory) {
 		this.connectionFactory = connectionFactory;
 	}
@@ -35,12 +36,12 @@ class HsqldbUserDao implements UserDao {
 			statement.setString(2, user.getLastName());
 			statement.setDate(3, new Date(user.getDateOfBirthd().getTime()));
 			int n = statement.executeUpdate();
-			if (n!= 1) {
+			if (n != 1) {
 				throw new DatabaseException("Number of the insered rows: " + n);
 			}
-			CallableStatement callableStatement= connection.prepareCall("call IDENTITY()");
+			CallableStatement callableStatement = connection.prepareCall("call IDENTITY()");
 			ResultSet keys = callableStatement.executeQuery();
-			if (keys.next()){
+			if (keys.next()) {
 				user.setId(new Long(keys.getLong(1)));
 			}
 			keys.close();
@@ -66,7 +67,7 @@ class HsqldbUserDao implements UserDao {
 			statement.setDate(3, new Date(user.getDateOfBirthd().getTime()));
 			statement.setLong(4, user.getId());
 			int n = statement.executeUpdate();
-			if (n!= 1) {
+			if (n != 1) {
 				throw new DatabaseException("Number of the updated rows: " + n);
 			}
 			statement.close();
@@ -87,7 +88,7 @@ class HsqldbUserDao implements UserDao {
 			PreparedStatement statement = connection.prepareStatement(DELETE_QUERY);
 			statement.setLong(1, user.getId());
 			int n = statement.executeUpdate();
-			if (n!= 1) {
+			if (n != 1) {
 				throw new DatabaseException("Number of the changed rows: " + n);
 			}
 			statement.close();
@@ -103,22 +104,22 @@ class HsqldbUserDao implements UserDao {
 
 	@Override
 	public User find(Long id) throws DatabaseException {
-		User user=null;
+		User user = null;
 		try {
 			Connection connection = connectionFactory.createConnection();
 			PreparedStatement statement = connection.prepareStatement(FIND_QUERY);
 			statement.setLong(1, id);
 			ResultSet resultSet = statement.executeQuery();
-			int n=0;
+			int n = 0;
 			while (resultSet.next()) {
 				++n;
 				user = new User();
 				user.setId(new Long(resultSet.getLong(1)));
 				user.setFirstName(new String(resultSet.getString(2)));
 				user.setLastName(new String(resultSet.getString(3)));
-				user.setDateOfBirthd(new java.util.Date(resultSet.getDate(4).getTime()));		
+				user.setDateOfBirthd(new java.util.Date(resultSet.getDate(4).getTime()));
 			}
-			if (n>1) {
+			if (n > 1) {
 				throw new DatabaseException("Number of the selected rows: " + n);
 			}
 			resultSet.close();
@@ -127,16 +128,15 @@ class HsqldbUserDao implements UserDao {
 		} catch (DatabaseException e) {
 			throw e;
 		} catch (SQLException e) {
-			throw new DatabaseException(e); 
+			throw new DatabaseException(e);
 		}
 		return user;
 	}
 
-	
 	@Override
 	public Collection findAll() throws DatabaseException {
 		Collection result = new LinkedList();
-		
+
 		try {
 			Connection connection = connectionFactory.createConnection();
 			java.sql.Statement statement = connection.createStatement();
@@ -147,13 +147,13 @@ class HsqldbUserDao implements UserDao {
 				user.setFirstName(new String(resultSet.getString(2)));
 				user.setLastName(new String(resultSet.getString(3)));
 				user.setDateOfBirthd(resultSet.getDate(4));
-				result.add(user);				
+				result.add(user);
 			}
-			
+
 		} catch (DatabaseException e) {
 			throw e;
 		} catch (SQLException e) {
-			throw new DatabaseException(e); 
+			throw new DatabaseException(e);
 		}
 		return result;
 	}
@@ -162,6 +162,7 @@ class HsqldbUserDao implements UserDao {
 		return connectionFactory;
 	}
 
+	@Override
 	public void setConnectionFactory(ConnectionFactory connectionFactory) {
 		this.connectionFactory = connectionFactory;
 	}

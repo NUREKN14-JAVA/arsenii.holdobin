@@ -15,6 +15,7 @@ public abstract class DaoFactory {
 		try {
 			properties.load(DaoFactory.class.getClassLoader().getResourceAsStream("settings.properties"));
 		} catch (IOException e) {
+			e.printStackTrace();
 			throw new RuntimeException(e);
 		}
 	}

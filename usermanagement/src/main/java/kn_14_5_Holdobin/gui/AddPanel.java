@@ -2,7 +2,6 @@ package kn_14_5_Holdobin.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,7 +19,7 @@ import kn_14_5_Holdobin.db.DatabaseException;
 import kn_14_5_Holdobin.util.Messages;
 
 public class AddPanel extends JPanel implements ActionListener {
-	
+
 	private MainFrame parent;
 	private JPanel buttonPanel;
 	private JPanel fieldPanel;
@@ -34,14 +33,15 @@ public class AddPanel extends JPanel implements ActionListener {
 	public AddPanel(MainFrame frame) {
 		parent = frame;
 		initialize();
+		bgColor = this.getBackground();
 	}
 
 	private void initialize() {
 		this.setName("addPanel"); //$NON-NLS-1$
 		this.setLayout(new BorderLayout());
-		this.add(getFieldPanel(),BorderLayout.NORTH);
-		this.add(getButtonPanel(),BorderLayout.SOUTH);	
-		
+		this.add(getFieldPanel(), BorderLayout.NORTH);
+		this.add(getButtonPanel(), BorderLayout.SOUTH);
+
 	}
 
 	private JPanel getButtonPanel() {
@@ -79,9 +79,9 @@ public class AddPanel extends JPanel implements ActionListener {
 		if (fieldPanel == null) {
 			fieldPanel = new JPanel();
 			fieldPanel.setLayout(new GridLayout(3, 2));
-			addLabeledField(fieldPanel,Messages.getString("AddPanel.first_name"),getFirstNameField()); //$NON-NLS-1$
-			addLabeledField(fieldPanel,Messages.getString("AddPanel.last_name"),getLastNameField()); //$NON-NLS-1$
-			addLabeledField(fieldPanel,Messages.getString("AddPanel.date_of_birth"),getDateOfBirthField()); //$NON-NLS-1$
+			addLabeledField(fieldPanel, Messages.getString("AddPanel.first_name"), getFirstNameField()); //$NON-NLS-1$
+			addLabeledField(fieldPanel, Messages.getString("AddPanel.last_name"), getLastNameField()); //$NON-NLS-1$
+			addLabeledField(fieldPanel, Messages.getString("AddPanel.date_of_birth"), getDateOfBirthField()); //$NON-NLS-1$
 		}
 		return fieldPanel;
 	}
@@ -107,8 +107,7 @@ public class AddPanel extends JPanel implements ActionListener {
 		label.setLabelFor(textField);
 		panel.add(label);
 		panel.add(textField);
-		
-		
+
 	}
 
 	private JTextField getFirstNameField() {
@@ -124,10 +123,10 @@ public class AddPanel extends JPanel implements ActionListener {
 		if ("ok".equalsIgnoreCase(e.getActionCommand())) {
 			User user = new User();
 			user.setFirstName(getFirstNameField().getText());
-			user.setFirstName(getLastNameField().getText());
+			user.setLastName(getLastNameField().getText());
 			DateFormat format = DateFormat.getDateInstance();
 			try {
-				user.setDateOfBirthd(format .parse(getDateOfBirthField().getText()));
+				user.setDateOfBirthd(format.parse(getDateOfBirthField().getText()));
 			} catch (ParseException e1) {
 				getDateOfBirthField().setBackground(Color.RED);
 				return;
@@ -140,16 +139,16 @@ public class AddPanel extends JPanel implements ActionListener {
 		}
 		clearFields();
 		this.setVisible(false);
-		parent.showBrowsePanel();		
+		parent.showBrowsePanel();
 	}
 
 	private void clearFields() {
 		getFirstNameField().setText("");
 		getFirstNameField().setBackground(bgColor);
-		
+
 		getLastNameField().setText("");
 		getLastNameField().setBackground(bgColor);
-		
+
 		getDateOfBirthField().setText("");
 		getDateOfBirthField().setBackground(bgColor);
 	}

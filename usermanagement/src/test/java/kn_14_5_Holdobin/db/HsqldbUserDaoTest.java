@@ -17,6 +17,7 @@ public class HsqldbUserDaoTest extends DatabaseTestCase {
 	private HsqldbUserDao dao;
 	private ConnectionFactory connectionFactory;
 
+	@Override
 	@Before
 	protected void setUp() throws Exception {
 		super.setUp();
@@ -43,17 +44,17 @@ public class HsqldbUserDaoTest extends DatabaseTestCase {
 
 	@Override
 	protected IDatabaseConnection getConnection() throws Exception {
-		connectionFactory = new ConnectionFactoryImpl("org.hsqldb.jdbcDriver","jdbc:hsqldb:file:db/usermanagement","sa","");
+		connectionFactory = new ConnectionFactoryImpl("org.hsqldb.jdbcDriver", "jdbc:hsqldb:file:db/usermanagement",
+				"sa", "");
 		return new DatabaseConnection(connectionFactory.createConnection());
 	}
 
 	@Override
 	protected IDataSet getDataSet() throws Exception {
-		IDataSet dataSet = new XmlDataSet(getClass().getClassLoader()
-				.getResourceAsStream("usersDataSet.xml"));
+		IDataSet dataSet = new XmlDataSet(getClass().getClassLoader().getResourceAsStream("usersDataSet.xml"));
 		return dataSet;
 	}
-	
+
 	@SuppressWarnings("rawtypes")
 	@Test
 	public void testFindAll() {
@@ -61,13 +62,13 @@ public class HsqldbUserDaoTest extends DatabaseTestCase {
 			java.util.Collection collection = dao.findAll();
 			assertNotNull("Collection is null!", collection);
 			assertEquals("Collection size!", 2, collection.size());
-			
+
 		} catch (DatabaseException e) {
 			e.printStackTrace();
 			fail(e.toString());
 		}
 	}
-	
+
 	@Test
 	public void testFind() {
 		try {
@@ -76,14 +77,14 @@ public class HsqldbUserDaoTest extends DatabaseTestCase {
 			assertEquals(new Long(1001), user.getId());
 			assertEquals("George", user.getFirstName());
 			assertEquals("Bush", user.getLastName());
-			
+
 		} catch (DatabaseException e) {
 			e.printStackTrace();
 			fail(e.toString());
 		}
-		
+
 	}
-	
+
 	@Test
 	public void testUpdate() {
 		try {
@@ -95,15 +96,15 @@ public class HsqldbUserDaoTest extends DatabaseTestCase {
 			user = dao.update(user);
 			assertNotNull(user);
 			User test = dao.find(1001L);
-			assertEquals(user.getFirstName(),test.getFirstName());
-			assertEquals(user.getLastName(),test.getLastName());
-			assertEquals(user.getDateOfBirthd(),test.getDateOfBirthd());
+			assertEquals(user.getFirstName(), test.getFirstName());
+			assertEquals(user.getLastName(), test.getLastName());
+			assertEquals(user.getDateOfBirthd(), test.getDateOfBirthd());
 		} catch (DatabaseException e) {
 			e.printStackTrace();
 			fail(e.toString());
 		}
 	}
-	
+
 	@Test
 	public void testDelete() {
 		try {
@@ -115,6 +116,6 @@ public class HsqldbUserDaoTest extends DatabaseTestCase {
 			e.printStackTrace();
 			fail(e.toString());
 		}
-		
+
 	}
 }

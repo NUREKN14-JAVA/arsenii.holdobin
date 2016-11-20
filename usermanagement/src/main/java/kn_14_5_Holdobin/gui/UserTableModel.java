@@ -11,14 +11,15 @@ import kn_14_5_Holdobin.util.Messages;
 
 public class UserTableModel extends AbstractTableModel {
 
-	private static final String[] COLUMN_NAMES = {Messages.getString("UserTableModel.id"), Messages.getString("UserTableModel.first_name"), Messages.getString("UserTableModel.last_name")}; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-	private static final Class<?>[] COLUMN_CLASSES = {Long.class, String.class, String.class};
-	private List users = null; 
-	
+	private static final String[] COLUMN_NAMES = { Messages.getString("UserTableModel.id"), //$NON-NLS-1$
+			Messages.getString("UserTableModel.first_name"), Messages.getString("UserTableModel.last_name") }; //$NON-NLS-1$ //$NON-NLS-2$
+	private static final Class<?>[] COLUMN_CLASSES = { Long.class, String.class, String.class };
+	private List users = null;
+
 	public UserTableModel(Collection users) {
-		this.users = new ArrayList(users); 
+		this.users = new ArrayList(users);
 	}
-	
+
 	@Override
 	public int getRowCount() {
 		return users.size();
@@ -28,8 +29,6 @@ public class UserTableModel extends AbstractTableModel {
 	public int getColumnCount() {
 		return COLUMN_NAMES.length;
 	}
-	
-	
 
 	@Override
 	public String getColumnName(int column) {

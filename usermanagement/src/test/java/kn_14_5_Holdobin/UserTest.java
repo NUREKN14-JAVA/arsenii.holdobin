@@ -2,6 +2,7 @@ package kn_14_5_Holdobin;
 
 import java.util.Calendar;
 import java.util.Date;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -12,6 +13,7 @@ public class UserTest extends TestCase {
 	private User user;
 	private Date dateOfBirthd;
 
+	@Override
 	@Before
 	protected void setUp() throws Exception {
 		super.setUp();

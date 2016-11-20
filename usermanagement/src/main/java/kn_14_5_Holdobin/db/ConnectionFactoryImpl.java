@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 public class ConnectionFactoryImpl implements ConnectionFactory {
-	
+
 	private String driver;
 	private String url;
 	private String user;
@@ -16,9 +16,8 @@ public class ConnectionFactoryImpl implements ConnectionFactory {
 		this.user = user;
 		this.password = password;
 		this.url = url;
-		this.driver = driver;	
-		
-		
+		this.driver = driver;
+
 	}
 
 	public ConnectionFactoryImpl(Properties properties) {

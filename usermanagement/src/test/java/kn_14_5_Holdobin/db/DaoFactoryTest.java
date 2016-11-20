@@ -1,6 +1,7 @@
 package kn_14_5_Holdobin.db;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
@@ -10,9 +11,9 @@ public class DaoFactoryTest {
 	public void testGetUserDao() {
 		try {
 			DaoFactory daoFactory = DaoFactory.getInstance();
-			assertNotNull("DaoFactory instance is null!",daoFactory);
+			assertNotNull("DaoFactory instance is null!", daoFactory);
 			UserDao userDao = daoFactory.getUserDao();
-			assertNotNull("UserDao instance is null!",userDao);
+			assertNotNull("UserDao instance is null!", userDao);
 		} catch (RuntimeException e) {
 			e.printStackTrace();
 			fail(e.toString());

@@ -9,6 +9,40 @@ public class User {
 	private String lastName;
 	private Date dateOfBirthd;
 
+	@Override
+	public int hashCode() {
+		if (this.getId() == null)
+			return 0;
+		return this.getId().hashCode();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null)
+			return false;
+		if (this == obj)
+			return true;
+		if (this.getId() == null && ((User) obj).getId() == null)
+			return true;
+		return this.getId().equals(((User) obj).getId());
+	}
+
+	public User() {
+	}
+
+	public User(Long id, String firstName, String lastName, Date dateOfBirthd) {
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		setDateOfBirthd(dateOfBirthd);
+	}
+
+	public User(String firstName, String lastName, Date dateOfBirthd) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		setDateOfBirthd(dateOfBirthd);
+	}
+
 	public Long getId() {
 		return id;
 	}
@@ -39,7 +73,7 @@ public class User {
 
 	@SuppressWarnings("deprecation")
 	public void setDateOfBirthd(Date dateOfBirthd) {
-		Date temp =new Date(0);
+		Date temp = new Date(0);
 		temp.setDate(dateOfBirthd.getDate());
 		temp.setYear(dateOfBirthd.getYear());
 		temp.setMonth(dateOfBirthd.getMonth());

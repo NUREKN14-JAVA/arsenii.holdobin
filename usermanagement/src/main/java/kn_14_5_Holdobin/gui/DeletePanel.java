@@ -1,42 +1,39 @@
 package kn_14_5_Holdobin.gui;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DateFormat;
-import java.text.ParseException;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 import kn_14_5_Holdobin.User;
 import kn_14_5_Holdobin.db.DatabaseException;
 import kn_14_5_Holdobin.util.Messages;
 
-public class EditPanel extends JPanel implements ActionListener {
+public class DeletePanel extends JPanel implements ActionListener {
 
 	private MainFrame parent;
 	private JPanel buttonPanel;
 	private JPanel fieldPanel;
 	private JButton cancelButton;
 	private JButton okButton;
-	private JTextField dateOfBirthField;
-	private JTextField lastNameField;
-	private JTextField firstNameField;
+	private JLabel dateOfBirthLabel;
+	private JLabel lastNameLabel;
+	private JLabel firstNameLabel;
 	private User user;
 
-	public EditPanel(MainFrame frame) {
+	public DeletePanel(MainFrame frame) {
 		parent = frame;
 		initialize();
 	}
 
 	private void initialize() {
-		this.setName("editPanel"); //$NON-NLS-1$
+		this.setName("deletePanel"); //$NON-NLS-1$
 		this.setLayout(new BorderLayout());
 		this.add(getFieldPanel(), BorderLayout.NORTH);
 		this.add(getButtonPanel(), BorderLayout.SOUTH);
@@ -77,62 +74,54 @@ public class EditPanel extends JPanel implements ActionListener {
 	private JPanel getFieldPanel() {
 		if (fieldPanel == null) {
 			fieldPanel = new JPanel();
-			fieldPanel.setLayout(new GridLayout(3, 2));
-			addLabeledField(fieldPanel, Messages.getString("AddPanel.first_name"), getFirstNameField()); //$NON-NLS-1$
-			addLabeledField(fieldPanel, Messages.getString("AddPanel.last_name"), getLastNameField()); //$NON-NLS-1$
-			addLabeledField(fieldPanel, Messages.getString("AddPanel.date_of_birth"), getDateOfBirthField()); //$NON-NLS-1$
+			fieldPanel.setLayout(new GridLayout(4, 2));
+			addLabeledField(fieldPanel, Messages.getString("AddPanel.first_name"), getFirstNameLabel()); //$NON-NLS-1$
+			addLabeledField(fieldPanel, Messages.getString("AddPanel.last_name"), getLastNameLabel()); //$NON-NLS-1$
+			addLabeledField(fieldPanel, Messages.getString("AddPanel.date_of_birth"), getDateOfBirthLabel()); //$NON-NLS-1$
+			fieldPanel.add(new JLabel(Messages.getString("DeletePanel.accept_question"))); //$NON-NLS-1$
 		}
 		return fieldPanel;
 	}
 
-	private JTextField getDateOfBirthField() {
-		if (dateOfBirthField == null) {
-			dateOfBirthField = new JTextField();
-			dateOfBirthField.setName("dateOfBirthField"); //$NON-NLS-1$
+	private JLabel getDateOfBirthLabel() {
+		if (dateOfBirthLabel == null) {
+			dateOfBirthLabel = new JLabel();
+			dateOfBirthLabel.setName("dateOfBirthLabel"); //$NON-NLS-1$
 		}
-		return dateOfBirthField;
+		return dateOfBirthLabel;
 	}
 
-	private JTextField getLastNameField() {
-		if (lastNameField == null) {
-			lastNameField = new JTextField();
-			lastNameField.setName("lastNameField"); //$NON-NLS-1$
+	private JLabel getLastNameLabel() {
+		if (lastNameLabel == null) {
+			lastNameLabel = new JLabel();
+			lastNameLabel.setName("lastNameLabel"); //$NON-NLS-1$
 		}
-		return lastNameField;
+		return lastNameLabel;
 	}
 
-	private void addLabeledField(JPanel panel, String labelText, JTextField textField) {
+	private void addLabeledField(JPanel panel, String labelText, JLabel userLabel) {
 		JLabel label = new JLabel(labelText);
-		label.setLabelFor(textField);
+		label.setLabelFor(userLabel);
 		panel.add(label);
-		panel.add(textField);
+		panel.add(userLabel);
 
 	}
 
-	private JTextField getFirstNameField() {
-		if (firstNameField == null) {
-			firstNameField = new JTextField();
-			firstNameField.setName("firstNameField"); //$NON-NLS-1$
+	private JLabel getFirstNameLabel() {
+		if (firstNameLabel == null) {
+			firstNameLabel = new JLabel();
+			firstNameLabel.setName("firstNameLabel"); //$NON-NLS-1$
 		}
-		return firstNameField;
+		return firstNameLabel;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if ("ok".equalsIgnoreCase(e.getActionCommand())) {
-			user.setFirstName(getFirstNameField().getText());
-			user.setLastName(getLastNameField().getText());
-			DateFormat format = DateFormat.getDateInstance();
+		if ("ok".equalsIgnoreCase(e.getActionCommand())) { //$NON-NLS-1$
 			try {
-				user.setDateOfBirthd(format.parse(getDateOfBirthField().getText()));
-			} catch (ParseException e1) {
-				getDateOfBirthField().setBackground(Color.RED);
-				return;
-			}
-			try {
-				parent.getDao().update(user);
+				parent.getDao().delete(user);
 			} catch (DatabaseException e1) {
-				JOptionPane.showMessageDialog(this, e1.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(this, e1.getMessage(), "Error", JOptionPane.ERROR_MESSAGE); //$NON-NLS-1$
 			}
 		}
 		this.setVisible(false);
@@ -141,10 +130,9 @@ public class EditPanel extends JPanel implements ActionListener {
 
 	public void resetFields() {
 		this.user = parent.getSelectedUser();
-		firstNameField.setText(user.getFirstName());
-		lastNameField.setText(user.getLastName());
+		firstNameLabel.setText(user.getFirstName());
+		lastNameLabel.setText(user.getLastName());
 		DateFormat formatter = DateFormat.getDateInstance();
-		dateOfBirthField.setText(formatter.format(user.getDateOfBirthd()));
+		dateOfBirthLabel.setText(formatter.format(user.getDateOfBirthd()));
 	}
-
 }
