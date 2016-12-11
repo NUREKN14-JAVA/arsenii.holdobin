@@ -54,7 +54,7 @@ public class MainFrameTest extends JFCTestCase {
 			setHelper(new JFCTestHelper());
 			String firstName = "Arsenii20";
 			String lastName = "Holdibin20";
-			Date now = new Date( new Timestamp(2016, 11, 11, 0, 0, 0, 0).getTime());
+			Date now = new Date(new Timestamp(2016, 11, 11, 0, 0, 0, 0).getTime());
 			expectedUser = new User(20L, firstName, lastName, now);
 			user = new User(20L, firstName, lastName, now);
 			users = new ArrayList();
@@ -150,7 +150,7 @@ public class MainFrameTest extends JFCTestCase {
 	@Test
 	public void testDeleteUser() {
 		try {
-			
+
 			mockUserDao.expectAndReturn("delete", expectedUser, expectedUser);
 			mockUserDao.expectAndReturn("find", 20L, expectedUser);
 			mockUserDao.expectAndReturn("find", 20L, expectedUser);
@@ -179,7 +179,7 @@ public class MainFrameTest extends JFCTestCase {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@Test
 	public void testDetailsUser() {
 		try {
@@ -192,14 +192,14 @@ public class MainFrameTest extends JFCTestCase {
 			getHelper().enterClickAndLeave(new JTableMouseEventData(this, table, 0, 0, 1));
 			getHelper().enterClickAndLeave(new MouseEventData(this, detailsButton));
 			find(JPanel.class, "detailsPanel");
-			JLabel firstNameLabel=(JLabel) find(JLabel.class, "firstNameLabel");
-			JLabel lastNameLabel=(JLabel) find(JLabel.class, "lastNameLabel");
-			JLabel dateOfBirthLabel =(JLabel) find(JLabel.class, "dateOfBirthLabel");
+			JLabel firstNameLabel = (JLabel) find(JLabel.class, "firstNameLabel");
+			JLabel lastNameLabel = (JLabel) find(JLabel.class, "lastNameLabel");
+			JLabel dateOfBirthLabel = (JLabel) find(JLabel.class, "dateOfBirthLabel");
 
 			DateFormat formatter = DateFormat.getDateInstance();
-			assertEquals(expectedUser.getFirstName(),firstNameLabel.getText());
-			assertEquals(expectedUser.getLastName(),lastNameLabel.getText());
-			assertEquals(formatter.format(expectedUser.getDateOfBirthd()),dateOfBirthLabel.getText());
+			assertEquals(expectedUser.getFirstName(), firstNameLabel.getText());
+			assertEquals(expectedUser.getLastName(), lastNameLabel.getText());
+			assertEquals(formatter.format(expectedUser.getDateOfBirthd()), dateOfBirthLabel.getText());
 			JButton okButton = (JButton) find(JButton.class, "okButton");
 			mockUserDao.expectAndReturn("findAll", users);
 			getHelper().enterClickAndLeave(new MouseEventData(this, okButton));
@@ -217,7 +217,7 @@ public class MainFrameTest extends JFCTestCase {
 		try {
 			String firstName = "Arsenii";
 			String lastName = "Holdibin";
-			Date dateOfBirth = new Date(1222,3,3);
+			Date dateOfBirth = new Date(1222, 3, 3);
 			User expectedUser = new User(20L, firstName, lastName, dateOfBirth);
 			mockUserDao.expectAndReturn("update", user, expectedUser);
 			users.remove(user);
@@ -238,7 +238,7 @@ public class MainFrameTest extends JFCTestCase {
 			JTextField dateOfBirthField = (JTextField) find(JTextField.class, "dateOfBirthField");
 			JButton okButton = (JButton) find(JButton.class, "okButton");
 			find(JButton.class, "cancelButton");
-			
+
 			firstNameField.setText("");
 			lastNameField.setText("");
 			dateOfBirthField.setText("");
@@ -252,9 +252,9 @@ public class MainFrameTest extends JFCTestCase {
 			find(JPanel.class, "browsePanel");
 			table = (JTable) find(JTable.class, "userTable");
 			assertEquals(1, table.getRowCount());
-			assertEquals(expectedUser.getId(),table.getValueAt(0, 0));
-			assertEquals(expectedUser.getFirstName(),table.getValueAt(0, 1));
-			assertEquals(expectedUser.getLastName(),table.getValueAt(0, 2));
+			assertEquals(expectedUser.getId(), table.getValueAt(0, 0));
+			assertEquals(expectedUser.getFirstName(), table.getValueAt(0, 1));
+			assertEquals(expectedUser.getLastName(), table.getValueAt(0, 2));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -20,6 +20,10 @@ import kn_14_5_Holdobin.util.Messages;
 
 public class AddPanel extends JPanel implements ActionListener {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2929641012025047236L;
 	private MainFrame parent;
 	private JPanel buttonPanel;
 	private JPanel fieldPanel;
