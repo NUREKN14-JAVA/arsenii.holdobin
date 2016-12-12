@@ -14,12 +14,12 @@ import kn_14_5_Holdobin.User;
 import kn_14_5_Holdobin.db.DaoFactory;
 import kn_14_5_Holdobin.db.DatabaseException;
 
-public class EditServlet extends HttpServlet {
+public class DeleteServlet extends HttpServlet {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 3284011014849852326L;
+	private static final long serialVersionUID = 4874138046557525107L;
 
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -40,7 +40,7 @@ public class EditServlet extends HttpServlet {
 	 * @throws IOException
 	 */
 	protected void showPage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.getRequestDispatcher("/edit.jsp").forward(req, resp);
+		req.getRequestDispatcher("/delete.jsp").forward(req, resp);
 	}
 
 	/**
@@ -65,7 +65,7 @@ public class EditServlet extends HttpServlet {
 			user = getUser(req);
 		} catch (ValidationException e1) {
 			req.setAttribute("error", e1.getMessage());
-			showPage(req, resp);
+			req.getRequestDispatcher("/browse").forward(req, resp);
 			return;
 		}
 		try {
@@ -77,12 +77,8 @@ public class EditServlet extends HttpServlet {
 		req.getRequestDispatcher("/browse").forward(req, resp);
 	}
 
-	/**
-	 * @param user
-	 * @throws DatabaseException
-	 */
 	protected void processUser(User user) throws DatabaseException {
-		DaoFactory.getInstance().getUserDao().update(user);
+		DaoFactory.getInstance().getUserDao().delete(user);
 	}
 
 	/**

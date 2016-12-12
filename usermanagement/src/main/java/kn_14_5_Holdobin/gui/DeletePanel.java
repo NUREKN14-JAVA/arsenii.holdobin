@@ -133,6 +133,6 @@ public class DeletePanel extends JPanel implements ActionListener {
 		firstNameLabel.setText(user.getFirstName());
 		lastNameLabel.setText(user.getLastName());
 		DateFormat formatter = DateFormat.getDateInstance();
-		dateOfBirthLabel.setText(formatter.format(user.getDateOfBirthd()));
+		dateOfBirthLabel.setText(formatter.format(user.getDateOfBirth()));
 	}
 }

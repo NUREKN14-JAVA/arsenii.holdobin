@@ -3,14 +3,13 @@
 <jsp:useBean id="user" class="kn_14_5_Holdobin.User" scope="session" />
 <html>
 <head>
-<title>User Management. Edit</title>
+<title>User Management. Add</title>
 </head>
 <body>
-	<form action="<%=request.getContextPath()%>/edit" method= "post">
-		<input type ="hidden" name="id" value="${user.id}">
-		First Name <input type ="text" name="firstName" value="${user.firstName}">
-		Last Name <input type ="text" name="lastName" value="${user.lastName}">
-		Date of Birth <input type ="text" name="dateOfBirth" value="<fmt:formatDate value="${user.dateOfBirth}" type="date" dateStyle="medium"/>">
+	<form action="<%=request.getContextPath()%>/add" method= "post">
+		First Name <input type ="text" name="firstName">
+		Last Name <input type ="text" name="lastName">
+		Date of Birth <input type ="text" name="dateOfBirth">
 		<input type="submit" name="okButton" value="Ok">
 		<input type="submit" name="cancelButton" value="Cancel">
 	</form>

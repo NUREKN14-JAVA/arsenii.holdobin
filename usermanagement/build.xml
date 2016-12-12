@@ -13,8 +13,8 @@
 	<property name="classes-dir" value="${build-dir}/classes" />
 	<property name="lib-dir" value="${basedir}/lib" />
 
-	<property name="war-name" value="users" />
-	<property name="war-dir" value="${build-dir}/${war-name}" />
+	<property name="war-name" value="WebContent" />
+	<property name="war-dir" value="${basedir}/${war-name}" />
 	<property name="war-jsp-dir" value="${war-dir}" />
 	<property name="war-webinf-dir" value="${war-dir}/WEB-INF" />
 	<property name="war-lib-dir" value="${war-webinf-dir}/lib" />

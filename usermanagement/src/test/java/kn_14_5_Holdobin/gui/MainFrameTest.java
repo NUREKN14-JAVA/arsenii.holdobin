@@ -199,7 +199,7 @@ public class MainFrameTest extends JFCTestCase {
 			DateFormat formatter = DateFormat.getDateInstance();
 			assertEquals(expectedUser.getFirstName(), firstNameLabel.getText());
 			assertEquals(expectedUser.getLastName(), lastNameLabel.getText());
-			assertEquals(formatter.format(expectedUser.getDateOfBirthd()), dateOfBirthLabel.getText());
+			assertEquals(formatter.format(expectedUser.getDateOfBirth()), dateOfBirthLabel.getText());
 			JButton okButton = (JButton) find(JButton.class, "okButton");
 			mockUserDao.expectAndReturn("findAll", users);
 			getHelper().enterClickAndLeave(new MouseEventData(this, okButton));

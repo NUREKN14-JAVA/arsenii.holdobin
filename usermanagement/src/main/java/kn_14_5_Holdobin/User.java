@@ -7,7 +7,7 @@ public class User {
 	private Long id;
 	private String firstName;
 	private String lastName;
-	private Date dateOfBirthd;
+	private Date dateOfBirth;
 
 	@Override
 	public int hashCode() {
@@ -67,8 +67,8 @@ public class User {
 		this.lastName = lastName;
 	}
 
-	public Date getDateOfBirthd() {
-		return dateOfBirthd;
+	public Date getDateOfBirth() {
+		return dateOfBirth;
 	}
 
 	@SuppressWarnings("deprecation")
@@ -77,7 +77,7 @@ public class User {
 		temp.setDate(dateOfBirthd.getDate());
 		temp.setYear(dateOfBirthd.getYear());
 		temp.setMonth(dateOfBirthd.getMonth());
-		this.dateOfBirthd = temp;
+		this.dateOfBirth = temp;
 	}
 
 	public Object getFullName() {
@@ -88,7 +88,7 @@ public class User {
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(new Date());
 		int currentYear = calendar.get(Calendar.YEAR);
-		calendar.setTime(getDateOfBirthd());
+		calendar.setTime(getDateOfBirth());
 		return currentYear - calendar.get(Calendar.YEAR);
 	}
 
